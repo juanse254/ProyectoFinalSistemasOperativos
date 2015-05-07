@@ -1,4 +1,4 @@
-
+package proyectofinalso;
 import static java.lang.System.*;
 
 /** Convenience calls for using the Kernel.
