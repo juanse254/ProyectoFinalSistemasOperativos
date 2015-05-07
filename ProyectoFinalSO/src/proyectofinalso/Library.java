@@ -11,6 +11,26 @@ import static java.lang.System.*;
  * @see Kernel
  */
 public class Library {
+
+    static int getDiskBlockCount() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static int getDiskBlockSize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static int writeDiskBlock(int i, byte[] buf) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static int readDiskBlock(int b, byte[] buf) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static long getTime() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     /** This private constructor ensures that no instances of Library are
      * ever created.
      */
