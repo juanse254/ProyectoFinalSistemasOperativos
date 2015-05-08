@@ -215,9 +215,7 @@ public class FileTester {
      */
     private static int readTest(String fname, boolean isLink) {
         byte[] buf = new byte[blockSize];
-        int n = isLink
-                ? Library.readlink(fname, buf)
-                : Library.read(fname, buf);
+        int n=0; //= //isLink ? Library.readlink(fname, buf) : Library.read(fname, buf); }//cambiar
         boolean needNewline = false;
         if (n < 0) {
             return n;
@@ -258,7 +256,7 @@ public class FileTester {
         while (p < info.length()) {
             buf[i++] = (byte) info.charAt(p++);
         }
-        return Library.write(fname, buf);
+        return Library.writeDiskBlock(i, buf);//write(fname, buf); CAMBIAR
     } // writeTest(String, byte[])
 
     /** Write data to a (simulated) file using Library.write.
@@ -289,7 +287,7 @@ public class FileTester {
                 }
                 buf[i++] = '\n';
             }
-            return Library.write(fname, buf);
+            return Library.writeDiskBlock(i, buf); //write(fname, buf); //cambiar
         } catch (IOException e) {
             e.printStackTrace();
             return -1;
