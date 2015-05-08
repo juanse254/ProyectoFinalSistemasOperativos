@@ -76,6 +76,7 @@ public class FileTester {
                 System.exit(1);
             }
         } else {
+            
             input = new BufferedReader(new InputStreamReader(System.in));
         }
 
