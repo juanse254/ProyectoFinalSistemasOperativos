@@ -11,6 +11,8 @@ import static java.lang.System.*;
  * @see Kernel
  */
 public class Library {
+    
+    
 
     static int getDiskBlockCount() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -29,7 +31,52 @@ public class Library {
     }
 
     static long getTime() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        long[] t = new long[1];
+        int rc = Kernel.interrupt(Kernel.INTERRUPT_USER,
+                        Kernel.SYSCALL_GET_TIME,
+                        0, t, null, null );
+        if (rc < 0) {
+            return rc;
+        } else {
+            return t[0];
+        }
+        // getTime
+    }
+
+    static int format() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    static int chdir(String nextToken) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    static int create(String nextToken) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    static int delete(String nextToken) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    static int mkdir(String nextToken) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    static int rmdir(String nextToken) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    static int symlink(String oldName, String newName) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    static int readdir(String dirname, byte[] buf) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    static int readlink(String string, byte[] buf1) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     /** This private constructor ensures that no instances of Library are
      * ever created.

@@ -135,6 +135,10 @@ public class Kernel {
     public static final int ERROR_NO_SUCH_PROCESS = -9;
 
     //////////////// Transient state of the kernel
+    
+    public static final int SYSCALL_GET_TIME = 4;
+    
+    // Calls the GET_TIME to get the system time in miliseconds from 1970.
 
     /** The disk to be used */
     private static Disk disk;
@@ -204,7 +208,8 @@ public class Kernel {
 
                 case SYSCALL_JOIN:
                     return doJoin(i2);
-
+                case SYSCALL_GET_TIME:
+                    return doGetTime((long[])o1);
                 default:
                     return ERROR_BAD_ARGUMENT;
                 }
@@ -360,6 +365,12 @@ public class Kernel {
     private static int doJoin(int pid) {
         return Launcher.joinOne(pid);
     } // doJoin(int)
+    
+    private static int doGetTime(long[] t) {
+            t[0] = System.currentTimeMillis();
+            return 0;
+        }
+    //do GetTime
 
     /** A Launcher instance represents one atomic command being run by the
      * Kernel.  It has associated with it a process id (pid), a Java method
