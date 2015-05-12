@@ -153,6 +153,10 @@ public class Kernel {
 
     /** The size of the disk cache */
     private static int cacheSize;
+    
+    /** The Disk Scheduler */
+    
+    private static DiskQueue Monitor;
 
     //////////////// Methods
 
@@ -219,9 +223,9 @@ public class Kernel {
                 case SYSCALL_GET_TIME:
                     return doGetTime((long[])o1);
                 case SYSCALL_READ_DISK_BLOCK:
-                    return doReadDiskBlock();
+                    return doReadDiskBlock((int)o1, (byte[])o2);
                 case SYSCALL_WRITE_DISK_BLOCK:
-                    return doWriteDiskBlock();
+                    return doWriteDiskBlock((int)o1, (byte[])o2);
                 default:
                     return ERROR_BAD_ARGUMENT;
                 }
@@ -254,6 +258,7 @@ public class Kernel {
     private static void doPowerOn(int i1, Object o1, Object o2) {
         cacheSize = i1;
         disk = (Disk)o1;
+        Monitor = new DiskQueue(disk);
         String shellCommand = (String) o2;
 
         doOutput("Kernel: Disk is " + disk.DISK_SIZE + " blocks\n");
@@ -384,13 +389,13 @@ public class Kernel {
         }
     //do GetTime
     
-    private static int doReadDiskBlock(){
+    private static int doReadDiskBlock(int o1, byte[] o2){
         return 0;
     }
     
     //do Read Disk Block
     
-    private static int doWriteDiskBlock(){
+    private static int doWriteDiskBlock( int o1, byte[] o2){
         return 0;
     }
     

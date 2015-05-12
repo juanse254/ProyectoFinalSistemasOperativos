@@ -10,8 +10,13 @@ package proyectofinalso;
  * @author Sebastian
  */
 public class DiskQueue {
-    public DiskQueue(){
-        
+    
+    private static Disk disk;
+    private boolean status;
+
+    public DiskQueue(Disk a){
+        disk = a;
+        status = disk.busy;
     }
     
     /**
