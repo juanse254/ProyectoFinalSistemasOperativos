@@ -62,5 +62,13 @@ public class Request {
     public boolean getisLocked(){
         return lock.isLocked();
     }
-
+    public synchronized void waitRequest() throws InterruptedException{
+    
+        getCondition().awaitUninterruptibly();
+    }
+    
+    public synchronized void notifyRequest(){
+    
+       this.notifyAll();
+    }
 }
