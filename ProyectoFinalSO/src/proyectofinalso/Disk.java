@@ -38,6 +38,8 @@ public class Disk implements Runnable {
 
     /** Total size of this disk, in blocks. */
     public final int DISK_SIZE;
+    
+    private static int size; 
 
     /////////////////////////////////////////// Transient internal state
 
@@ -113,6 +115,8 @@ public class Disk implements Runnable {
             }
         }
         this.DISK_SIZE = size;
+        setDiskSize(size);
+        
         if (size < 1) {
             throw new DiskException("A disk must have at least one block!");
         }
@@ -246,6 +250,8 @@ public class Disk implements Runnable {
         notify();
     } // beginWrite(int, byte[])
 
+
+    
     /** Waits for a call to beginRead or beginWrite. */
     protected synchronized void waitForRequest() {
         while(!requestQueued) {
@@ -279,6 +285,17 @@ public class Disk implements Runnable {
      * operation, and sends an interrupt to the CPU.
      * This method should <em>not</em> be called directly.
      */
+    public void setDiskSize( int sizeDisk){
+    
+         this.size= sizeDisk; 
+         
+    }
+    
+    public static int getDiskSize(){
+    
+        return size;  
+    }
+    
     public void run() {
         for (;;) {
             waitForRequest();
