@@ -139,7 +139,15 @@ public class Kernel {
     public static final int SYSCALL_GET_TIME = 4;
     
     // Calls the GET_TIME to get the system time in miliseconds from 1970.
-
+    
+    public static final int SYSCALL_READ_DISK_BLOCK = 5;
+    
+    // Reads Disk Blocks based on the block number and returns the data.
+    
+    public static final int SYSCALL_WRITE_DISK_BLOCK = 6;
+    
+    //Writes the Disk block to the selected block number with the selected data.
+    
     /** The disk to be used */
     private static Disk disk;
 
@@ -210,6 +218,10 @@ public class Kernel {
                     return doJoin(i2);
                 case SYSCALL_GET_TIME:
                     return doGetTime((long[])o1);
+                case SYSCALL_READ_DISK_BLOCK:
+                    return doReadDiskBlock();
+                case SYSCALL_WRITE_DISK_BLOCK:
+                    return doWriteDiskBlock();
                 default:
                     return ERROR_BAD_ARGUMENT;
                 }
@@ -371,6 +383,18 @@ public class Kernel {
             return 0;
         }
     //do GetTime
+    
+    private static int doReadDiskBlock(){
+        return 0;
+    }
+    
+    //do Read Disk Block
+    
+    private static int doWriteDiskBlock(){
+        return 0;
+    }
+    
+    //do Write Disk Block
 
     /** A Launcher instance represents one atomic command being run by the
      * Kernel.  It has associated with it a process id (pid), a Java method
