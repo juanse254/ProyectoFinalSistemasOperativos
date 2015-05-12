@@ -28,7 +28,6 @@ public class DiskQueue {
          }
          status = true;
          disk.beginRead(blocknumber, data);
-         endIO();
     }
      
       /**
@@ -40,7 +39,6 @@ public class DiskQueue {
          }
          status = true;
          disk.beginWrite(blocknumber, data);
-         endIO();
      }
      
       /**
