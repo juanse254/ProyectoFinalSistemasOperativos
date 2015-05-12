@@ -73,19 +73,32 @@ public class DiskQueue {
      public synchronized void endIO(){
          status=false;
          notifyAll();
+         
+         
      }
      
-     public  void ProcessIO() throws InterruptedException{
+     public synchronized void ProcessIO() throws InterruptedException{
          for(Request current:queue){
-             if(AnyLock()){
-                 wait(1);
-             }
+             if(status){ 
+               wait();
+             } 
+             
              else if(current.getRequestTask() == Request.task.READ){
+                 status=true;
                  disk.beginRead(current.getRequestBlock(), current.getRequestBuffer());
+                 
+                         
+                         
+                 //queue.remove(current); 
              }
              else if(current.getRequestTask() == Request.task.WRITE){
+                 status=true;
                  disk.beginWrite(current.getRequestBlock(), current.getRequestBuffer());
+                 //current.notifyRequest();
+                 //queue.remove(current); 
              }
+             
+            
          }
      }
      
