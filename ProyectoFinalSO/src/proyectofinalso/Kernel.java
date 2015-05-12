@@ -231,6 +231,7 @@ public class Kernel {
                 }
 
             case INTERRUPT_DISK:
+                Monitor.endIO();
                 break;
 
             case INTERRUPT_POWER_ON:
@@ -390,12 +391,14 @@ public class Kernel {
     //do GetTime
     
     private static int doReadDiskBlock(int o1, byte[] o2){
+        Monitor.read(o1, o2);
         return 0;
     }
     
     //do Read Disk Block
     
     private static int doWriteDiskBlock( int o1, byte[] o2){
+        Monitor.write(o1, o2);
         return 0;
     }
     

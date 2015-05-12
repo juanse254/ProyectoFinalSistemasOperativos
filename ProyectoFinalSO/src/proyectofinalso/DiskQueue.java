@@ -16,22 +16,37 @@ public class DiskQueue {
 
     public DiskQueue(Disk a){
         disk = a;
-        status = disk.busy;
     }
     
     /**
-     *
+     * If the Resource(Disk) is not busy, calls the beginRead method on the disk to read the data on the blocknumber.
      */
-     public static void read(){
-        
+     public  synchronized void read(int blocknumber, byte data[]){
+         status = disk.busy;
+         while (status == true) {
+             this.wait();
+         }
+         disk.beginRead(blocknumber, data[]);
+         endIO();
     }
      
-     public static void write(){
-         
+      /**
+     * If the Resource(Disk) is not busy, calls the writeRead method on the disk to read the data on the blocknumber.
+     */
+     public  synchronized void write(int blocknumber, byte data[]){
+         status = disk.busy;
+         while (status == true) {
+             this.wait();
+         }
+         disk.beginWrite(blocknumber, data[]);
+         endIO();
      }
      
-     public static void endIO(){
-         
+      /**
+     * If the Resource(Disk) is not busy, calls the beginRead method on the disk to read the data on the blocknumber.
+     */
+     public synchronized void endIO(){
+         this.notifyall();
      }
     
 }
