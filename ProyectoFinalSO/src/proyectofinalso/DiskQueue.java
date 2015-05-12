@@ -22,7 +22,7 @@ public class DiskQueue {
     /**
      * If the Resource(Disk) is not busy, calls the beginRead method on the disk to read the data on the block number.
      */
-     public  synchronized void read(int blocknumber, byte data[]){
+     public  synchronized void read(int blocknumber, byte data[]) throws InterruptedException{
          while (status == true) {
              wait();
          }
@@ -34,7 +34,7 @@ public class DiskQueue {
       /**
      * If the Resource(Disk) is not busy, calls the writeRead method on the disk to read the data on the block number.
      */
-     public  synchronized void write(int blocknumber, byte data[]){
+     public  synchronized void write(int blocknumber, byte data[]) throws InterruptedException{
          while (status == true) {
              wait();
          }
