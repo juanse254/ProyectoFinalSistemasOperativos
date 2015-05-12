@@ -13,15 +13,14 @@ import static java.lang.System.*;
 public class Library {
     
     
-
-    static int getDiskBlockCount() {
+   static int getDiskBlockCount() {
         
         int diskSize= Disk.getDiskSize(); 
         
         if(diskSize>0){
             return diskSize; 
         }else {
-            return 1; 
+            return 0; 
         }
         
     }
@@ -36,16 +35,16 @@ public class Library {
             
         } else{
             
-            return 1; 
+            return 0; 
         }
     }
 
-    static int writeDiskBlock(int i, byte[] buf) {
+       static int writeDiskBlock(int i, byte[] buf) {
         int rc = Kernel.interrupt(Kernel.INTERRUPT_USER, Kernel.SYSCALL_WRITE_DISK_BLOCK, 0, i, null, buf);
         if (rc < 0) {
             return rc;
         } else {
-            return 1;
+            return 0;
         }
     }
 
@@ -54,7 +53,7 @@ public class Library {
         if (rc < 0) {
             return rc;
         } else {
-            return 1;
+            return 0;
         }
     }
 

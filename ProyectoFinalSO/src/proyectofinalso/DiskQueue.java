@@ -12,41 +12,43 @@ package proyectofinalso;
 public class DiskQueue {
     
     private static Disk disk;
-    private boolean status;
+    private boolean status; // if busy, true else false.
 
     public DiskQueue(Disk a){
         disk = a;
+        status=false;
     }
     
     /**
-     * If the Resource(Disk) is not busy, calls the beginRead method on the disk to read the data on the blocknumber.
+     * If the Resource(Disk) is not busy, calls the beginRead method on the disk to read the data on the block number.
      */
      public  synchronized void read(int blocknumber, byte data[]){
-         status = disk.busy;
          while (status == true) {
-             this.wait();
+             wait();
          }
+         status = true;
          disk.beginRead(blocknumber, data[]);
          endIO();
     }
      
       /**
-     * If the Resource(Disk) is not busy, calls the writeRead method on the disk to read the data on the blocknumber.
+     * If the Resource(Disk) is not busy, calls the writeRead method on the disk to read the data on the block number.
      */
      public  synchronized void write(int blocknumber, byte data[]){
-         status = disk.busy;
          while (status == true) {
-             this.wait();
+             wait();
          }
+         status = true;
          disk.beginWrite(blocknumber, data[]);
          endIO();
      }
      
       /**
-     * If the Resource(Disk) is not busy, calls the beginRead method on the disk to read the data on the blocknumber.
+     * If the Resource(Disk) is not busy, calls the beginRead method on the disk to read the data on the block number.
      */
      public synchronized void endIO(){
-         this.notifyall();
+         status=false;
+         notifyall();
      }
     
 }
