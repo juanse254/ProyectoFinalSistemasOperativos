@@ -27,7 +27,7 @@ public class Library {
         if (rc < 0) {
             return rc;
         } else {
-            return 1;
+            return 0;
         }
     }
 
@@ -36,7 +36,7 @@ public class Library {
         if (rc < 0) {
             return rc;
         } else {
-            return 1;
+            return 0;
         }
     }
 
