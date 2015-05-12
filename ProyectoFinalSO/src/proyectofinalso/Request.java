@@ -1,4 +1,5 @@
 package proyectofinalso;
+
 import static java.lang.System.arraycopy;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -18,14 +19,16 @@ public class Request {
     public static final ReentrantLock lock = new ReentrantLock();
     private byte[] requestBuffer = null;
     private int requestBlock = 0;
-    public static enum task {READ, WRITE};
-    private task operation; 
+
+    public static enum task {
+
+        READ, WRITE, NULL
+    };
+    private task operation;
     private Condition condition = null;
-    
-    
 
     public Request(int requestBlock, byte[] requestBuffer, task operation) {
-        
+
         if (false) {
             this.requestBuffer = new byte[requestBuffer.length];
             arraycopy(requestBuffer, 0,
@@ -39,36 +42,30 @@ public class Request {
         condition = lock.newCondition();
 
     }
-    
-    public Condition getCondition(){
+
+    public void setTaskNULL() {
+
+        this.operation = task.NULL;
+    }
+
+    public Condition getCondition() {
         return condition;
     }
 
     public byte[] getRequestBuffer() {
         return requestBuffer;
     }
-    
-    public int getRequestBlock(){
+
+    public int getRequestBlock() {
         return requestBlock;
     }
-    
-    public task getRequestTask(){
+
+    public task getRequestTask() {
         return operation;
     }
-    
-    public void setRequestBlock(int requestBlock){
+
+    public void setRequestBlock(int requestBlock) {
         this.requestBlock = requestBlock;
     }
-    public boolean getisLocked(){
-        return lock.isLocked();
-    }
-    public synchronized void waitRequest() throws InterruptedException{
-    
-        getCondition().awaitUninterruptibly();
-    }
-    
-    public synchronized void notifyRequest(){
-    
-       this.notifyAll();
-    }
+
 }
