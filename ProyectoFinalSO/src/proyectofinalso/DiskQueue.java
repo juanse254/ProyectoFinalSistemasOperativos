@@ -78,7 +78,7 @@ public class DiskQueue {
      public  void ProcessIO() throws InterruptedException{
          for(Request current:queue){
              if(AnyLock()){
-                 wait();
+                 wait(1);
              }
              else if(current.getRequestTask() == Request.task.READ){
                  disk.beginRead(current.getRequestBlock(), current.getRequestBuffer());

@@ -1,4 +1,4 @@
-
+package proyectofinalso;
 import static java.lang.System.arraycopy;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -15,22 +15,25 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Request {
 
-    public static final Lock lock = new ReentrantLock();
+    public static final ReentrantLock lock = new ReentrantLock();
     private byte[] requestBuffer = null;
     private int requestBlock = 0;
     public static enum task {READ, WRITE};
     private task operation; 
     private Condition condition = null;
+    
+    
 
     public Request(int requestBlock, byte[] requestBuffer, task operation) {
         
-        if(false){
-        this.requestBuffer = new byte[requestBuffer.length];
-        arraycopy(requestBuffer, 0,
-                this.requestBuffer, 0,
-                requestBuffer.length);
-        }else        
+        if (false) {
+            this.requestBuffer = new byte[requestBuffer.length];
+            arraycopy(requestBuffer, 0,
+                    this.requestBuffer, 0,
+                    requestBuffer.length);
+        } else {
             this.requestBuffer = requestBuffer;
+        }
         this.requestBlock = requestBlock;
         this.operation = operation;
         condition = lock.newCondition();
@@ -55,6 +58,9 @@ public class Request {
     
     public void setRequestBlock(int requestBlock){
         this.requestBlock = requestBlock;
+    }
+    public boolean getisLocked(){
+        return lock.isLocked();
     }
 
 }
