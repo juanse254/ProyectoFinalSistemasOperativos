@@ -23,11 +23,21 @@ public class Library {
     }
 
     static int writeDiskBlock(int i, byte[] buf) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rc = Kernel.interrupt(Kernel.INTERRUPT_USER, Kernel.SYSCALL_WRITE_DISK_BLOCK, 0, i, null, buf);
+        if (rc < 0) {
+            return rc;
+        } else {
+            return 1;
+        }
     }
 
     static int readDiskBlock(int b, byte[] buf) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rc = Kernel.interrupt(Kernel.INTERRUPT_USER, Kernel.SYSCALL_READ_DISK_BLOCK, 0, b, null, buf);
+        if (rc < 0) {
+            return rc;
+        } else {
+            return 1;
+        }
     }
 
     static long getTime() {

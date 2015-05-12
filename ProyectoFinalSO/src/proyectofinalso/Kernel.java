@@ -217,15 +217,14 @@ public class Kernel {
 
                 case SYSCALL_EXEC:
                     return doExec((String)o1,(String[])o2);
-
                 case SYSCALL_JOIN:
                     return doJoin(i2);
                 case SYSCALL_GET_TIME:
                     return doGetTime((long[])o1);
                 case SYSCALL_READ_DISK_BLOCK:
-                    return doReadDiskBlock((int)o1, (byte[])o2);
+                    return doReadDiskBlock((int)o1, a);
                 case SYSCALL_WRITE_DISK_BLOCK:
-                    return doWriteDiskBlock((int)o1, (byte[])o2);
+                    return doWriteDiskBlock((int)o1, a);
                 default:
                     return ERROR_BAD_ARGUMENT;
                 }
