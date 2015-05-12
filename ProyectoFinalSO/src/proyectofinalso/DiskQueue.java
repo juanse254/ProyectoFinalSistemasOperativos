@@ -27,7 +27,7 @@ public class DiskQueue {
              wait();
          }
          status = true;
-         disk.beginRead(blocknumber, data[]);
+         disk.beginRead(blocknumber, data);
          endIO();
     }
      
@@ -39,7 +39,7 @@ public class DiskQueue {
              wait();
          }
          status = true;
-         disk.beginWrite(blocknumber, data[]);
+         disk.beginWrite(blocknumber, data);
          endIO();
      }
      
@@ -48,7 +48,7 @@ public class DiskQueue {
      */
      public synchronized void endIO(){
          status=false;
-         notifyall();
+         notifyAll();
      }
     
 }
