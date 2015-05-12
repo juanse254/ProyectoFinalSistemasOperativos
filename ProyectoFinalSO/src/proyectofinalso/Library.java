@@ -15,11 +15,29 @@ public class Library {
     
 
     static int getDiskBlockCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        int diskSize= Disk.getDiskSize(); 
+        
+        if(diskSize>0){
+            return diskSize; 
+        }else {
+            return 1; 
+        }
+        
     }
 
     static int getDiskBlockSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        int blockSize= Disk.BLOCK_SIZE; 
+        
+        if (blockSize>0){
+            
+            return blockSize;
+            
+        } else{
+            
+            return 1; 
+        }
     }
 
     static int writeDiskBlock(int i, byte[] buf) {
