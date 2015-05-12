@@ -1,5 +1,5 @@
 SRC = Kernel.java Library.java Boot.java Disk.java Shell.java Count.java \
-	GetOpt.java # DiskTester.java
+	GetOpt.java DiskTester.java
 
 all: compile run
 
