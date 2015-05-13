@@ -291,7 +291,8 @@ public class Kernel {
     /** Does any "shutdown" activities required after all activities started by
      * a POWER_ON interrupt have completed.
      */
-    private static void doShutdown() {
+    private static void doShutdown() throws InterruptedException {
+        Monitor.shutdown();
         disk.flush();
     } // doShutdown()
 

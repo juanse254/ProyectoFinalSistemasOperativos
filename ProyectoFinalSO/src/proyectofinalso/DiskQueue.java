@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
 
 /**
  *
@@ -24,7 +23,7 @@ public class DiskQueue {
     public DiskQueue(Disk a) {
         disk = a;
         status = false;
-        queue = new ArrayList<Request>();
+        queue = new ArrayList<>();
     }
 
     /**
@@ -34,14 +33,7 @@ public class DiskQueue {
     public synchronized void read(int blocknumber, byte data[]) throws InterruptedException {
         Request x = new Request(blocknumber, data, Request.task.READ);
         queue.add(x);
-        Collections.sort(queue, new Comparator<Request>() {
-            @Override
-            public int compare(Request request1, Request request2) {
-                return request1.getRequestBlock() - request2.getRequestBlock();
-            }
-        });
         ProcessIO();
-
     }
 
     /**
@@ -52,14 +44,7 @@ public class DiskQueue {
 
         Request x = new Request(blocknumber, data, Request.task.WRITE);
         queue.add(x);
-        Collections.sort(queue, new Comparator<Request>() {
-            @Override
-            public int compare(Request request1, Request request2) {
-                return request1.getRequestBlock() - request2.getRequestBlock();
-            }
-        });
         ProcessIO();
-
     }
 
     /**
@@ -67,9 +52,14 @@ public class DiskQueue {
      * to read the data on the block number.
      */
     public synchronized void endIO() {
+        Collections.sort(queue, new Comparator<Request>() {
+            @Override
+            public int compare(Request request1, Request request2) {
+                return request1.getRequestBlock() - request2.getRequestBlock();
+            }
+        });
         status = false;
         notifyAll();
-
     }
 
     public synchronized void ProcessIO() throws InterruptedException {
@@ -90,6 +80,12 @@ public class DiskQueue {
 
             }
 
+        }
+    }
+    
+    public synchronized void shutdown() throws InterruptedException{
+        if(queue.contains(Request.task.READ) || queue.contains(Request.task.WRITE)){
+            wait();
         }
     }
 
