@@ -288,7 +288,7 @@ public class Kernel {
         Launcher.joinAll();
     } // doPowerOn(int, Object, Object)
 
-    /** Does any "shutdown" activities required after all activities started by
+    /** Does any "down" activities required after all activities started by
      * a POWER_ON interrupt have completed.
      */
     private static void doShutdown() throws InterruptedException {
