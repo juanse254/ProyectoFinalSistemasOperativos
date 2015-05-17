@@ -11,32 +11,34 @@ package proyectofinalso;
  */
 public class DiskBlock {
 
-    private String size;
-    private String location;
-    private Byte [] data; 
+    private int size;
+    private int location;
+    private byte [] data; 
     private String state; 
     private Boolean flag; 
-   
 
-    public DiskBlock(String size, String location) {
+    public DiskBlock(int size, int location, byte[] data, String state, Boolean flag) {
         this.size = size;
         this.location = location;
-         
+        this.data = data;
+        this.state = state;
+        this.flag = flag;
     }
+   
 
-    public String getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
-    public String getLocation() {
+    public int getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(int location) {
         this.location = location;
     }
 
