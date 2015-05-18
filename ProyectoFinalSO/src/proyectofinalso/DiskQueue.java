@@ -77,7 +77,7 @@ public class DiskQueue {
                 current.setTaskNULL();
 
             } else if (current.getRequestTask() == Request.task.NULL) {
-
+                
             }
 
         }
