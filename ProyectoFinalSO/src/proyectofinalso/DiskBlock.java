@@ -14,14 +14,15 @@ public class DiskBlock {
     private int size;
     private int location;
     private byte [] data; 
-    private String state; 
+    public static enum  state {
+        EMPTY, DIRTY, CLEAN
+    }; 
     private Boolean flag; 
 
     public DiskBlock(int size, int location, byte[] data, String state, Boolean flag) {
         this.size = size;
         this.location = location;
         this.data = data;
-        this.state = state;
         this.flag = flag;
     }
    
@@ -40,14 +41,6 @@ public class DiskBlock {
 
     public void setLocation(int location) {
         this.location = location;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public Boolean isFlag() {
