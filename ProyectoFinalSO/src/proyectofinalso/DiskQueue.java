@@ -19,6 +19,7 @@ public class DiskQueue {
     private static Disk disk;
     private boolean status; // if busy, true else false.
     private List<Request> queue;
+     
 
     public DiskQueue(Disk a) {
         disk = a;
