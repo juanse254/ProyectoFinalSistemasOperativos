@@ -157,6 +157,10 @@ public class Kernel {
     /** The Disk Scheduler */
     
     private static DiskQueue Monitor;
+    
+    /** The DiskCache Manager **/
+    
+    private static DiskCache cache;
 
     //////////////// Methods
 
@@ -259,6 +263,7 @@ public class Kernel {
         cacheSize = i1;
         disk = (Disk)o1;
         Monitor = new DiskQueue(disk);
+        cache = new DiskCache(disk, cacheSize);
         String shellCommand = (String) o2;
 
         doOutput("Kernel: Disk is " + disk.DISK_SIZE + " blocks\n");

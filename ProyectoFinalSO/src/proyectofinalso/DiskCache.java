@@ -15,12 +15,13 @@ import java.util.List;
  */
 public class DiskCache {
 
-    private ArrayList <DiskBlock> buffer;
+    private ArrayList <DiskBlock> cache;
     private Disk disk;
+    private int cache_size;
     
-    public DiskCache(Disk a){
-    
-       buffer= new ArrayList<>();
+    public DiskCache(Disk a, int size){
+        cache_size = size;
+       cache= new ArrayList<>();
        disk= a; 
            
     }
