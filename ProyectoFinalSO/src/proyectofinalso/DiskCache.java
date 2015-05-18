@@ -29,6 +29,9 @@ public class DiskCache {
        disk= a; 
        data = new byte[disk.DISK_SIZE * disk.BLOCK_SIZE];
        Monitor = new DiskQueue(disk);
+       for(int i=0; i <= cache_size; i++){
+           cache.add(new DiskBlock(Disk.BLOCK_SIZE, 0, data, DiskBlock.state.EMPTY, Boolean.TRUE, DiskBlock.type.READ));
+       }
     }
     
     
@@ -55,7 +58,7 @@ public class DiskCache {
         }
         if (!isCache) {
             for(DiskBlock x:cache){
-                if (x.getStat() == DiskBlock.state.CLEAN) {
+                if (x.getStat() == DiskBlock.state.CLEAN || x.getStat() == DiskBlock.state.EMPTY) {
                     arraycopy(data, blocknumber * Disk.BLOCK_SIZE, datax, 0, Disk.BLOCK_SIZE);
                     int y = cache.indexOf(x);
                     cache.remove(x);
@@ -91,7 +94,7 @@ public class DiskCache {
         }
         if (!isCache) {
             for(DiskBlock x:cache){
-                if (x.getStat() == DiskBlock.state.CLEAN) {
+                if (x.getStat() == DiskBlock.state.CLEAN || x.getStat() == DiskBlock.state.EMPTY) {
                     int y = cache.indexOf(x);
                     cache.remove(x);
                     DiskBlock block = new DiskBlock(disk.BLOCK_SIZE, blocknumber, datax, DiskBlock.state.DIRTY, true, DiskBlock.type.WRITE); //revisar el clean y el false
