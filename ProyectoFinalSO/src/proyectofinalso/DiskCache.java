@@ -32,7 +32,7 @@ public class DiskCache {
     }
     
     
-    public synchronized void read(int blocknumber, byte data[]) throws InterruptedException {
+    public synchronized void read(int blocknumber, byte datax[]) throws InterruptedException {
         if(cache.size() == cache_size){
             ClearCache();
         }
@@ -56,18 +56,19 @@ public class DiskCache {
         if (!isCache) {
             for(DiskBlock x:cache){
                 if (x.getStat() == DiskBlock.state.CLEAN) {
+                    arraycopy(data, blocknumber * Disk.BLOCK_SIZE, datax, 0, Disk.BLOCK_SIZE);
                     int y = cache.indexOf(x);
                     cache.remove(x);
-                    DiskBlock block = new DiskBlock(disk.BLOCK_SIZE, blocknumber, data, DiskBlock.state.DIRTY, true, DiskBlock.type.READ); //revisar el clean y el false
+                    DiskBlock block = new DiskBlock(disk.BLOCK_SIZE, blocknumber, datax, DiskBlock.state.DIRTY, true, DiskBlock.type.READ); //revisar el clean y el false
                     cache.add(y,block);
-                    Monitor.read(block.getLocation(), block.getData());
+                    Monitor.read(blocknumber, datax);
                     break;
                 }
             }
         }
     }
 
-    public synchronized void write(int blocknumber, byte data[]) throws InterruptedException {
+    public synchronized void write(int blocknumber, byte datax[]) throws InterruptedException {
          if(cache.size() == cache_size){
             ClearCache();
         }
@@ -93,7 +94,7 @@ public class DiskCache {
                 if (x.getStat() == DiskBlock.state.CLEAN) {
                     int y = cache.indexOf(x);
                     cache.remove(x);
-                    DiskBlock block = new DiskBlock(disk.BLOCK_SIZE, blocknumber, data, DiskBlock.state.DIRTY, true, DiskBlock.type.WRITE); //revisar el clean y el false
+                    DiskBlock block = new DiskBlock(disk.BLOCK_SIZE, blocknumber, datax, DiskBlock.state.DIRTY, true, DiskBlock.type.WRITE); //revisar el clean y el false
                     cache.add(y,block);
                     break;
                 }
