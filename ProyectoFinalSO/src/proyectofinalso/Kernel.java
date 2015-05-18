@@ -396,14 +396,14 @@ public class Kernel {
     //do GetTime
     
     private static int doReadDiskBlock(int o1, byte[] o2) throws InterruptedException{
-        Monitor.read(o1, o2);
+        cache.read(o1, o2);
         return 0;
     }
     
     //do Read Disk Block
     
     private static int doWriteDiskBlock( int o1, byte[] o2) throws InterruptedException{
-        Monitor.write(o1, o2);
+        cache.write(o1, o2);
         return 0;
     }
     
