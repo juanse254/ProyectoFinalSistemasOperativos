@@ -14,19 +14,42 @@ public class DiskBlock {
     private int size;
     private int location;
     private byte [] data; 
-    public static enum  state {
-        EMPTY, DIRTY, CLEAN
-    }; 
-    private Boolean flag; 
+    private Boolean flag;
+    private state stat;
+    private type kind;
 
-    public DiskBlock(int size, int location, byte[] data, String state, Boolean flag) {
+    public type getKind() {
+        return kind;
+    }
+
+    public void setKind(type kind) {
+        this.kind = kind;
+    }
+
+    public DiskBlock(int size, int location, byte[] data, state sta, Boolean flag, type k) {
         this.size = size;
         this.location = location;
         this.data = data;
         this.flag = flag;
+        this.stat = sta;
+        this.kind = k;
     }
-   
 
+    public byte[] getData() {
+        return data;
+    }
+
+    public Boolean getFlag() {
+        return flag;
+    }
+    public static enum  state {
+        EMPTY, DIRTY, CLEAN
+    }; 
+    
+    public static enum  type {
+        READ, WRITE
+    };
+    
     public int getSize() {
         return size;
     }
@@ -51,4 +74,10 @@ public class DiskBlock {
         this.flag = flag;
     }
 
+    public state getStat() {
+        return stat;
+    }
+    public void setStat(state stat) {
+        this.stat = stat;
+    }
 }
